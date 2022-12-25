@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import Image from '../components/Image.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <Image/>
   </main>
 </template>

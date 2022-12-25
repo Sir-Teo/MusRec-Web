@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
-import HelloWorld from '../HelloWorld.vue'
+import ImageUpload from '../ImageUpload.vue'
 
-describe('HelloWorld', () => {
+describe('ImageUpload', () => {
   it('renders properly', () => {
-    const wrapper = mount(HelloWorld, { props: { msg: 'Hello Vitest' } })
+    const wrapper = mount(ImageUpload, { props: { msg: 'Hello Vitest' } })
     expect(wrapper.text()).toContain('Hello Vitest')
   })
 })
