@@ -7,7 +7,6 @@ import ImageUpload from './components/ImageUpload.vue'
   <header>
     
     <div class="wrapper">
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>

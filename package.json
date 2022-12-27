@@ -9,6 +9,7 @@
     "test:unit": "vitest --environment jsdom --root src/"
   },
   "dependencies": {
+    "@tensorflow/tfjs": "^4.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vuetify": "^2.6.13"
