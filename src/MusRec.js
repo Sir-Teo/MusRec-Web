@@ -2,17 +2,15 @@
 import * as tf from '@tensorflow/tfjs';
 
 const MUSIC_CLASSES = {
-  1:"classical music",
-  2:"country music",
-  3:"jazz music",
-  4:"pop music",
-  5:"rock music",
+  0:"classical music",
+  1:"country music",
+  2:"jazz music",
+  3:"pop music",
+  4:"rock music",
 }
 
 const MODEL_URL = 'src/my_tfjs_model/model.json'
-const INPUT_NODE_NAME = 'images';
-const OUTPUT_NODE_NAME = 'module_apply_default/MobilenetV2/Logits/output';
-const PREPROCESS_DIVISOR = tf.scalar(255 / 2);
+
 
 export class MusRec {
   constructor() {

@@ -4,12 +4,17 @@ import * as tf from '@tensorflow/tfjs';
 import {MusRec} from '../MusRec';
 import imageURL from '../assets/lebron.jpg';
 
+const isLoaded = ref(false);
+const isPredicted = ref(false);
+const resultDisplay = ref([]);
+
 
 async function predict() {
   const musrec = new MusRec();
   console.time('Loading of model');
   await musrec.load();
   console.timeEnd('Loading of model');
+  isLoaded.value = true;
   var pic0 = new Image();
   pic0.src = imageURL;
   pic0.onload = async () => {
@@ -20,32 +25,28 @@ async function predict() {
     let result = musrec.predict(img0);
     const topK = musrec.getTopKClasses(result, 5);
     console.timeEnd('First prediction Time');
+    isPredicted.value = true;
     var resultElement = ""
     topK.forEach(x => {
     resultElement += `${x.value.toFixed(3)}: ${x.label}\n`;
+    resultDisplay.value.push ({value: x.value.toFixed(3),key: x.label});
   });
     console.log(resultElement);
+
   }
 
 }
 </script>
 
 
-
-
-<script>
-</script>
-
-
-
 <template>
+<div id="Display Text">
 <button @click="predict" class = "predict-button">predict</button>
-
-<!--
-<img src = "../assets/lebron.jpg" />
--->
-<div id="result">
-
+<p v-if = "isLoaded">Model Loaded...</p>
+<p v-if = "isPredicted">Displaying Predicted value...</p>
+<p v-if = "resultDisplay.length !=0" v-for="(r, i) in resultDisplay" :key="i">
+        {{ r.key }}: {{ r.value }}
+</p>
 </div>
   
 </template>
