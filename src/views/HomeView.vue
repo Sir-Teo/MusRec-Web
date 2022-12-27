@@ -15,21 +15,19 @@ async function predict() {
   pic0.onload = async () => {
     var img0 = tf.browser.fromPixels(pic0).resizeBilinear([180,180]);
     console.log(img0);
-    console.time('First prediction');
-
+    console.time('First prediction Time');
     // input 180*180*3
     let result = musrec.predict(img0);
     const topK = musrec.getTopKClasses(result, 5);
-    console.timeEnd('First prediction');
+    console.timeEnd('First prediction Time');
     var resultElement = ""
     topK.forEach(x => {
     resultElement += `${x.value.toFixed(3)}: ${x.label}\n`;
   });
     console.log(resultElement);
   }
-  //const result = await musrec.predict(imageURL);
-}
 
+}
 </script>
 
 
