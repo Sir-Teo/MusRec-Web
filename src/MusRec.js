@@ -15,7 +15,8 @@ const OUTPUT_NODE_NAME = 'module_apply_default/MobilenetV2/Logits/output';
 const PREPROCESS_DIVISOR = tf.scalar(255 / 2);
 
 export class MusRec {
-  constructor() {}
+  constructor() {
+  }
 
   async load() {
     this.model = await tf.loadGraphModel(MODEL_URL);
@@ -35,13 +36,8 @@ export class MusRec {
    * @return The softmax logits.
    */
   predict(input) {
-    const preprocessedInput = tf.div(
-        tf.sub(input.asType('float32'), PREPROCESS_DIVISOR),
-        PREPROCESS_DIVISOR);
-    const reshapedInput =
-        preprocessedInput.reshape([1, ...preprocessedInput.shape]);
-    return this.model.execute(
-        {[INPUT_NODE_NAME]: reshapedInput}, OUTPUT_NODE_NAME);
+    var prediction = this.model.predict(input.reshape([1, 180, 180, 3]));
+    return prediction;
   }
 
   getTopKClasses(logits, topK) {
