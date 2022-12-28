@@ -40,11 +40,13 @@ async function predict() {
 
 <script>
 
-
+const songList = ref([]);
+const isRecommending = ref(false);
 
 async function recommend() {
   var result = JSON.parse(window.sessionStorage.getItem('result'));
-
+  var target_genre = Object.keys(result)[0].split(" ")[0];
+  var limit = 5
   var client_id = 'deca4b76e5114fdbb97ce87467341145';
   var client_secret = '93f8fc29f4a3427881a6228835eefd16';
 
@@ -59,14 +61,15 @@ async function recommend() {
   .then(r => {
       console.log(r.access_token);
       window.sessionStorage.setItem('access_token', r.access_token);
+      isRecommending.value = true;
   })
 
-  const endpoint = "https://api.spotify.com/v1/recommendations";
-  const artists = '6sFIWsNpZYqfjUpaCgueju';
-  const danceability = encodeURIComponent('0.9');
-  const token = window.sessionStorage.getItem('access_token');
 
-  fetch(`${endpoint}?seed_artists=${artists}&target_danceability=${danceability}`, {
+  const endpoint = "https://api.spotify.com/v1/recommendations";
+  const token = window.sessionStorage.getItem('access_token');
+  const genre = target_genre;
+
+  fetch(`${endpoint}?seed_genres=${genre}&limit=${limit}`, {
     method: "GET",
     headers: {
         Authorization: `Bearer ${token}`
@@ -76,6 +79,7 @@ async function recommend() {
   .then(({tracks}) => {
     tracks.forEach(item => {
       console.log(`${item.name} by ${item.artists[0].name}`);
+      songList.value.push({value: `${item.name}`, key: `${item.artists[0].name}`});
     })
   })
     
@@ -92,6 +96,13 @@ async function recommend() {
 <p v-if = "resultDisplay.length !=0" v-for="(r, i) in resultDisplay" :key="i">
         {{ r.key }}: {{ r.value }}
 </p>
+<p v-if = "isRecommending">Displaying Recommendations...</p>
+<div id = "song-list" class = "song-list">
+<p> </p>
+<p class = "song" v-if = "songList.length !=0" v-for="(r, i) in songList" :key="i">
+        {{ r.key }} by {{ r.value }}
+</p>
+</div>
 </div>
   
 </template>
@@ -121,5 +132,10 @@ async function recommend() {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+
+.song {
+  font-size: 20px;
+  color: black;
 }
 </style>
