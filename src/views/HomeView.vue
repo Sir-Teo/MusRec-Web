@@ -41,6 +41,7 @@ async function predict() {
 <script>
 
 const songList = ref([]);
+const songID = ref([]);
 const isRecommending = ref(false);
 
 async function recommend() {
@@ -78,8 +79,9 @@ async function recommend() {
   .then(response => response.json())
   .then(({tracks}) => {
     tracks.forEach(item => {
-      console.log(`${item.name} by ${item.artists[0].name}`);
+      //console.log(`${item.name} by ${item.artists[0].name}`);
       songList.value.push({value: `${item.name}`, key: `${item.artists[0].name}`});
+      songID.value.push({value:`${item.id}`,key : `${item.name}`});
     })
   })
     
@@ -97,12 +99,10 @@ async function recommend() {
         {{ r.key }}: {{ r.value }}
 </p>
 <p v-if = "isRecommending">Displaying Recommendations...</p>
-<div id = "song-list" class = "song-list">
-<p> </p>
-<p class = "song" v-if = "songList.length !=0" v-for="(r, i) in songList" :key="i">
-        {{ r.key }} by {{ r.value }}
-</p>
+<div id = "spotify-embed" class = "song" v-if = "songID.length !=0" v-for="(r, i) in songID" :key="i">
+  <iframe :src="`https://open.spotify.com/embed/track/`+r.value" width="80%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 </div>
+
 </div>
   
 </template>
