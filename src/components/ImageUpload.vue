@@ -1,4 +1,5 @@
 <script setup>
+
 </script>
 
 <template>
@@ -29,7 +30,7 @@ export default {
             const file = event.target.files[0]
             this.$emit('update:modelValue', file);
             this.url = URL.createObjectURL(file);
-            URL.revokeObjectURL(file);
+            window.sessionStorage.setItem('image-url', this.url);
             console.log(this.url);
         },
     },

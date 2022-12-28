@@ -2,14 +2,14 @@
 import { ref, onMounted } from 'vue'
 import * as tf from '@tensorflow/tfjs';
 import {MusRec} from '../MusRec';
-import imageURL from '../assets/lebron.jpg';
 
 const isLoaded = ref(false);
 const isPredicted = ref(false);
 const resultDisplay = ref([]);
 
 
-async function predict() {
+async function predict(url) {
+  var imageURL = window.sessionStorage.getItem('image-url');
   const musrec = new MusRec();
   console.time('Loading of model');
   await musrec.load();
