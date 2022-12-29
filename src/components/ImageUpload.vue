@@ -8,7 +8,7 @@
     <h3>
       Upload an image using the button below, our model will then recommend you with the best matched music!
     </h3>
-    <input type="file" @change="onChange($event)">
+    <input type="file" @change="onChange($event)" size = 60>
   </div>
 
   <div id="preview">

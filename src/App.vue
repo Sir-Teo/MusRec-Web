@@ -8,8 +8,9 @@ import ImageUpload from './components/ImageUpload.vue'
     
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Predict</RouterLink>
+        <RouterLink to="/method">Method</RouterLink>
+        <RouterLink to="/about">About Us</RouterLink>
       </nav>
       <ImageUpload/>
     </div>

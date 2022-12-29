@@ -91,15 +91,15 @@ async function recommend() {
 
 <template>
 <div id="Display Text">
-<button @click="predict" class = "predict-button">predict</button>
-<button @click="recommend" class = "recommend-button">recommend</button>
+<button @click="predict" class = "predict-button">Predict</button>
+<button @click="recommend" class = "recommend-button">Recommend</button>
 <p v-if = "isLoaded">Model Loaded...</p>
 <p v-if = "isPredicted">Displaying Predicted value...</p>
 <p v-if = "resultDisplay.length !=0" v-for="(r, i) in resultDisplay" :key="i">
         {{ r.key }}: {{ r.value }}
 </p>
 <p v-if = "isRecommending">Displaying Recommendations...</p>
-<div id = "spotify-embed" class = "song" v-if = "songID.length !=0" v-for="(r, i) in songID" :key="i">
+<div id = "spotify-embed" v-if = "songID.length !=0" v-for="(r, i) in songID" :key="i">
   <iframe :src="`https://open.spotify.com/embed/track/`+r.value" width="80%" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 </div>
 
@@ -108,34 +108,46 @@ async function recommend() {
 </template>
 
 <style scoped>
+
+
 .predict-button {
   width: 100px;
   height: 50px;
-  background-color: #4CAF50; /* Green */
+  background-color: transparent; 
   border: none;
-  color: white;
+  color: hsla(160, 100%, 37%, 1);
   padding: 3px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
+
+
+button,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  button:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
 
 .recommend-button {
-  width: 100px;
+  width: 120px;
   height: 50px;
-  background-color: red;
+  background-color: transparent;
   border: none;
-  color: white;
-  padding: 3px 5px;
+  color: hsla(160, 100%, 37%, 1);
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
-}
-
-.song {
-  font-size: 20px;
-  color: black;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
 }
 </style>
