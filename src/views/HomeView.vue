@@ -3,12 +3,17 @@ import { ref, onMounted } from 'vue'
 import * as tf from '@tensorflow/tfjs';
 import {MusRec} from '../MusRec';
 
+const hasImage = ref(false);
 const isLoaded = ref(false);
 const isPredicted = ref(false);
 const resultDisplay = ref([]);
 
 
 async function predict() {
+  if (hasImage.value == false) {
+    alert("Please upload an image first!");
+    return;
+  }
   var imageURL = window.sessionStorage.getItem('image-url');
   const musrec = new MusRec();
   console.time('Loading of model');
@@ -18,6 +23,7 @@ async function predict() {
   var pic0 = new Image();
   pic0.src = imageURL;
   pic0.onload = async () => {
+    hasImage.value = true
     var img0 = tf.browser.fromPixels(pic0).resizeBilinear([180,180]);
     console.log(img0);
     console.time('First prediction Time');
@@ -84,7 +90,6 @@ async function recommend() {
       songID.value.push({value:`${item.id}`,key : `${item.name}`});
     })
   })
-    
 }
 </script>
 

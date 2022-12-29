@@ -5,8 +5,10 @@ import ImageUpload from './components/ImageUpload.vue'
 
 <template>
   <header>
-    
     <div class="wrapper">
+      <div class = "logo">
+        <img src="./assets/logo.png" class = "logo-img" />
+      </div>
       <nav>
         <RouterLink to="/">Predict</RouterLink>
         <RouterLink to="/method">Method</RouterLink>
@@ -25,9 +27,10 @@ header {
   max-height: 100vh;
 }
 
-.logo {
+.logo-img {
   display: block;
-  margin: 0 auto 2rem;
+  width: 240px;
+  height: 200px;
 }
 
 nav {
